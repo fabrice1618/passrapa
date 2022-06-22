@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  web:
+    container_name: pass_web
+    build:
+      context: .
+      dockerfile: Dockerfile_php8
+    volumes:
+      - ./Passrapa:/var/www/html
+    ports:
+      - "8090:80"
+    restart: always
+
+  mysql:
+    container_name: pass_mysql
+    restart: always
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pwd
+      MYSQL_DATABASE: passrapa
+      MYSQL_USER: passrapa
+      MYSQL_PASS: passrapa_pwd
+    volumes:
+      - passbd-volume:/var/lib/mysql
+
+volumes:
+  passbd-volume:
